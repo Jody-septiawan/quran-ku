@@ -6,7 +6,7 @@ import { Main } from "@/view";
 
 export default function Index() {
   return (
-    <Layout>
+    <Layout title="Surat">
       <Main />
     </Layout>
   );
