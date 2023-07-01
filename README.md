@@ -1,1 +1,1 @@
-![Image](./image-v1.png "image-v1")
+![Image](./image-v2.png "image-v2")
