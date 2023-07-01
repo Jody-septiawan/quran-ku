@@ -3,33 +3,31 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { CardAudioControl } from "./CardAudioControl";
-
-interface AudioFull {
-  [key: string]: string;
-}
-
-interface Surah {
-  nomor: number;
-  nama: string;
-  namaLatin: string;
-  jumlahAyat: number;
-  tempatTurun: string;
-  arti: string;
-  deskripsi: string;
-  audioFull: AudioFull;
-}
+import { useQuranStore } from "@/state/useQuranStore";
+import type { Surah } from "@/types";
 
 interface Props {
   data: Surah;
 }
 
 export function CardItem({ data }: Props) {
-  const [enableControl, setEnableControl] = React.useState(false);
+  const { surahDetail, setSurahDetail } = useQuranStore();
 
   const onClickCard = () => {
-    setEnableControl(!enableControl);
+    setSurahDetail(data);
   };
+
+  const activeCard = React.useMemo(() => {
+    if (!surahDetail) return {};
+
+    if (data.nomor === surahDetail.nomor) {
+      return {
+        border: "5px solid #48bf91",
+      };
+    } else {
+      return {};
+    }
+  }, [data.nomor, surahDetail]);
 
   return (
     <Box
@@ -39,6 +37,8 @@ export function CardItem({ data }: Props) {
       onClick={onClickCard}
       sx={{
         cursor: "pointer",
+        border: "5px solid white",
+        ...activeCard,
       }}
     >
       <Box>
@@ -58,7 +58,6 @@ export function CardItem({ data }: Props) {
           {data.arti}
         </Box>
       </Box>
-      {enableControl && <CardAudioControl url={data.audioFull["01"]} />}
     </Box>
   );
 }
