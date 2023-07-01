@@ -39,6 +39,9 @@ export function CardItem({ data }: Props) {
         cursor: "pointer",
         border: "5px solid white",
         ...activeCard,
+        "&:hover": {
+          border: "5px solid #ccdbdc",
+        },
       }}
     >
       <Box>
