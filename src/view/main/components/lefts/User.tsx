@@ -16,11 +16,6 @@ import { useUser } from "./hooks";
 export function User() {
   const { handleLogin, handleLogout, textToColor, googleUserInfo } = useUser();
 
-  console.log(
-    "process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID",
-    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-  );
-
   return (
     <Box
       marginY={1}
