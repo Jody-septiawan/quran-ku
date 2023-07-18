@@ -28,3 +28,7 @@ With the presence of Quran-ku website, listening to the verses of the Quran beco
 - [x] Login with Google
 - [ ] Bookmark
 - [ ] Support tablet and mobile view (Responsive)
+
+# APIs used
+
+- [equran.id](https://equran.id/apidev)
