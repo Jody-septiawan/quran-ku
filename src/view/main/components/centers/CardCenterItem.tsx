@@ -7,7 +7,7 @@ type Props = React.PropsWithChildren;
 export function CardCenterItem({ children }: Props) {
   return (
     <Box
-      height="93vh"
+      height="90vh"
       alignItems="center"
       justifyContent="center"
       display="flex"

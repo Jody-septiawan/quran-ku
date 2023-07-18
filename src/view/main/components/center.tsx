@@ -9,7 +9,27 @@ import { useQuranStore } from "@/state/useQuranStore";
 import { CardItem, WrapperCard, CardCenterItem } from "./centers";
 
 export function Center() {
-  const { surah, surahDetail, loading } = useQuranStore();
+  const { surah, loading, search } = useQuranStore();
+
+  const surahFiltered = React.useMemo(() => {
+    if (surah.length === 0 || !surah) return [];
+
+    if (search) {
+      return surah.filter((item) => {
+        const namaLatinLowerCase = item.namaLatin.toLowerCase();
+        const namaLatinInclude = namaLatinLowerCase.includes(
+          search.toLowerCase()
+        );
+
+        const artiLowerCase = item.arti.toLowerCase();
+        const artiInclude = artiLowerCase.includes(search.toLowerCase());
+
+        return namaLatinInclude || artiInclude;
+      });
+    }
+
+    return surah;
+  }, [search, surah]);
 
   return (
     <WrapperCard>
@@ -18,24 +38,19 @@ export function Center() {
           <Typography>Loading...</Typography>
         </CardCenterItem>
       )}
-      {!loading && surah.length === 0 && (
+      {!loading && surahFiltered.length === 0 && (
         <CardCenterItem>
           <Typography>Data Empty</Typography>
         </CardCenterItem>
       )}
-      {!loading && surah.length > 0 && (
-        <Box overflow="auto" height="88vh" className="scrollbar-hide">
+      {!loading && surahFiltered.length > 0 && (
+        <Box overflow="auto" className="scrollbar-hide" minHeight="90vh">
           <Grid container spacing={1}>
-            {surah.map((item, index) => (
+            {surahFiltered.map((item, index) => (
               <Grid item xs={12} sm={6} lg={4} key={index}>
                 <CardItem data={item} />
               </Grid>
             ))}
-            {surahDetail && (
-              <Grid item xs={12} sm={6} lg={4}>
-                <Box height={50}></Box>
-              </Grid>
-            )}
           </Grid>
         </Box>
       )}

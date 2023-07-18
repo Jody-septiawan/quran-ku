@@ -135,7 +135,7 @@ export function CardAudioControl(): JSX.Element {
   }, [surah]);
 
   return (
-    <Box width="100%" position="absolute" bottom={0} display="flex" padding={1}>
+    <Box width="100%" position="sticky" bottom={0} display="flex" padding={1}>
       <Box
         sx={{
           background:

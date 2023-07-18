@@ -5,30 +5,30 @@ import Typography from "@mui/material/Typography";
 
 export function CenterHeader() {
   return (
-    <Box
-      height="5vh"
-      padding={1}
-      // borderRadius={3}
-      marginTop={1}
-      bgcolor="#DBF1EC"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        background:
-          "linear-gradient(3deg, rgba(38,171,123,1) 0%, rgba(42,125,95,1) 100%)",
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-      }}
-    >
-      <Typography
-        color="white"
+    <Box bgcolor="#264B3C" position="sticky" top={0}>
+      <Box
+        marginTop={1}
+        paddingY={1.3}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
         sx={{
-          fontWeight: "bold",
+          background:
+            "linear-gradient(3deg, rgba(38,171,123,1) 0%, rgba(42,125,95,1) 100%)",
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         }}
       >
-        Quran-Ku
-      </Typography>
+        <Typography
+          color="white"
+          sx={{
+            fontWeight: "bold",
+            fontFamily: "Poppins",
+          }}
+        >
+          Quran-Ku
+        </Typography>
+      </Box>
     </Box>
   );
 }

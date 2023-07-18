@@ -9,6 +9,8 @@ type Store = {
   setSurahDetail: (surahDetail: Surah | null) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  search: string | null;
+  setSearch: (search: string | null) => void;
 };
 
 export const useQuranStore = create<Store>()((set) => ({
@@ -18,4 +20,6 @@ export const useQuranStore = create<Store>()((set) => ({
   setSurahDetail: (surahDetail: Surah | null) => set(() => ({ surahDetail })),
   loading: false,
   setLoading: (loading: boolean) => set(() => ({ loading })),
+  search: null,
+  setSearch: (search: string | null) => set(() => ({ search })),
 }));
