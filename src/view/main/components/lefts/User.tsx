@@ -1,13 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
 
-import {
-  GoogleOAuthProvider,
-  GoogleLogin,
-  CredentialResponse,
-} from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
-import stc from "string-to-color";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -17,38 +11,10 @@ import Divider from "@mui/material/Divider";
 
 import LoginImg from "@/assets/image/login.svg";
 
-import { useUserStore } from "@/state";
-import { GoogleUserInfo } from "@/types";
+import { useUser } from "./hooks";
 
 export function User() {
-  const { googleUserInfo, setGoogleUserInfo } = useUserStore();
-
-  const handleLogin = React.useCallback(
-    (credentialResponse: CredentialResponse) => {
-      localStorage.setItem(
-        "userCredential",
-        credentialResponse.credential as string
-      );
-      const decoded = jwt_decode(credentialResponse.credential as string);
-      setGoogleUserInfo(decoded as GoogleUserInfo);
-    },
-    [setGoogleUserInfo]
-  );
-
-  const handleLogout = React.useCallback(() => {
-    localStorage.removeItem("userCredential");
-    setGoogleUserInfo(null);
-  }, [setGoogleUserInfo]);
-
-  const textToColor = React.useMemo(() => {
-    if (!googleUserInfo) return "#fff";
-
-    return stc(
-      googleUserInfo.name +
-        googleUserInfo.given_name +
-        googleUserInfo.family_name
-    );
-  }, [googleUserInfo]);
+  const { handleLogin, handleLogout, textToColor, googleUserInfo } = useUser();
 
   return (
     <Box
@@ -77,7 +43,9 @@ export function User() {
               priority
             />
           </Box>
-          <GoogleOAuthProvider clientId="1032405244508-t512oduotitprgcan0eiibphuq71n3rd.apps.googleusercontent.com">
+          <GoogleOAuthProvider
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
+          >
             <GoogleLogin
               onSuccess={handleLogin}
               onError={() => {
